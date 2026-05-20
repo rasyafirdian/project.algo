@@ -15,7 +15,6 @@ void cls() {
 #else
     system("clear");
 #endif
-
 }
 
 // ======================================================
@@ -53,4 +52,3 @@ struct Histori {
 Histori* headHistori = NULL;
 Histori* tailHistori = NULL;
 kf
-tyyggg
