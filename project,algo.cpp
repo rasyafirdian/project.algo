@@ -706,3 +706,77 @@ void pengembalianMobil() {
 
     cout << "Mobil tidak ditemukan\n";
 }
+
+// ======================================================
+// HISTORI
+// ======================================================
+void tampilHistori() {
+
+    Histori* temp = headHistori;
+
+    while (temp != NULL) {
+
+        cout << "====================\n";
+        cout << "Customer : "
+             << temp->customer << endl;
+
+        cout << "Mobil : "
+             << temp->mobil << endl;
+
+        cout << "Lama : "
+             << temp->lama << endl;
+
+        cout << "Total : "
+             << temp->total << endl;
+
+        temp = temp->next;
+    }
+}
+
+// ======================================================
+// STATISTIK
+// ======================================================
+void statistik() {
+
+    int tersedia = 0;
+    int disewa = 0;
+    int total = 0;
+
+    Mobil* temp = headMobil;
+
+    string favorit = "-";
+    int maxRental = 0;
+
+    while (temp != NULL) {
+
+        total++;
+
+        if (temp->status == "Tersedia")
+            tersedia++;
+        else
+            disewa++;
+
+        if (temp->jumlahRental > maxRental) {
+
+            maxRental =
+                temp->jumlahRental;
+
+            favorit =
+                temp->nama;
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "Mobil tersedia : "
+         << tersedia << endl;
+
+    cout << "Mobil disewa   : "
+         << disewa << endl;
+
+    cout << "Total mobil    : "
+         << total << endl;
+
+    cout << "Favorit rental : "
+         << favorit << endl;
+}
