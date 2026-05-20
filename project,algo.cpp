@@ -389,3 +389,149 @@ void tambahMobil() {
 
     cout << "Mobil berhasil ditambahkan\n";
 }
+
+
+// ======================================================
+// TAMPIL MOBIL
+// ======================================================
+void tampilMobil() {
+
+    Mobil* temp = headMobil;
+
+    if (temp == NULL) {
+
+        cout << "Data kosong\n";
+        return;
+    }
+
+    while (temp != NULL) {
+
+        cout << "====================\n";
+        cout << "ID     : "
+             << temp->id << endl;
+
+        cout << "Nama   : "
+             << temp->nama << endl;
+
+        cout << "Plat   : "
+             << temp->plat << endl;
+
+        cout << "Tahun  : "
+             << temp->tahun << endl;
+
+        cout << "Harga  : "
+             << temp->harga << endl;
+
+        cout << "Status : "
+             << temp->status << endl;
+
+        temp = temp->next;
+    }
+}
+
+// ======================================================
+// EDIT MOBIL
+// ======================================================
+void editMobil() {
+
+    int id;
+
+    cout << "ID Mobil : ";
+    cin >> id;
+
+    Mobil* temp = headMobil;
+
+    while (temp != NULL) {
+
+        if (temp->id == id) {
+
+            cin.ignore();
+
+            cout << "Nama Baru : ";
+            getline(cin, temp->nama);
+
+            cout << "Plat Baru : ";
+            getline(cin, temp->plat);
+
+            cout << "Tahun Baru : ";
+            cin >> temp->tahun;
+
+            cout << "Harga Baru : ";
+            cin >> temp->harga;
+
+            pushStack("Edit Mobil");
+
+            saveData();
+
+            cout << "Mobil berhasil diedit\n";
+            return;
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "Mobil tidak ditemukan\n";
+}
+
+// ======================================================
+// HAPUS MOBIL
+// ======================================================
+void hapusMobil() {
+
+    int id;
+
+    cout << "ID Mobil : ";
+    cin >> id;
+
+    Mobil* temp = headMobil;
+    Mobil* prev = NULL;
+
+    while (temp != NULL) {
+
+        if (temp->id == id) {
+
+            if (prev == NULL)
+                headMobil = temp->next;
+            else
+                prev->next = temp->next;
+
+            delete temp;
+
+            pushStack("Hapus Mobil");
+
+            saveData();
+
+            cout << "Mobil berhasil dihapus\n";
+            return;
+        }
+
+        prev = temp;
+        temp = temp->next;
+    }
+
+    cout << "Mobil tidak ditemukan\n";
+}
+
+// ======================================================
+// CARI MOBIL - BST
+// ======================================================
+void cariMobil() {
+
+    int id;
+
+    cout << "Cari ID : ";
+    cin >> id;
+
+    BSTNode* hasil =
+        cariBST(rootBST, id);
+
+    if (hasil != NULL) {
+
+        cout << "Mobil ditemukan : "
+             << hasil->nama << endl;
+
+    } else {
+
+        cout << "Mobil tidak ditemukan\n";
+    }
+}
