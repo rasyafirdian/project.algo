@@ -535,3 +535,174 @@ void cariMobil() {
         cout << "Mobil tidak ditemukan\n";
     }
 }
+
+
+// ======================================================
+// SORTING BUBBLE SORT
+// ======================================================
+void sortingMobil() {
+
+    if (headMobil == NULL)
+        return;
+
+    bool tukar;
+
+    do {
+
+        tukar = false;
+
+        Mobil* current = headMobil;
+
+        while (current->next != NULL) {
+
+            if (current->harga >
+                current->next->harga) {
+
+                swap(current->id,
+                     current->next->id);
+
+                swap(current->nama,
+                     current->next->nama);
+
+                swap(current->plat,
+                     current->next->plat);
+
+                swap(current->tahun,
+                     current->next->tahun);
+
+                swap(current->harga,
+                     current->next->harga);
+
+                swap(current->status,
+                     current->next->status);
+
+                tukar = true;
+            }
+
+            current = current->next;
+        }
+
+    } while (tukar);
+
+    cout << "Sorting berhasil\n";
+}
+
+// ======================================================
+// RENTAL MOBIL
+// ======================================================
+void rentalMobil() {
+
+    string customer;
+    int id;
+    int lama;
+
+    cin.ignore();
+
+    cout << "Nama Customer : ";
+    getline(cin, customer);
+
+    cout << "ID Mobil : ";
+    cin >> id;
+
+    Mobil* temp = headMobil;
+
+    while (temp != NULL) {
+
+        if (temp->id == id) {
+
+            if (temp->status == "Disewa") {
+
+                cout << "Mobil sedang disewa\n";
+
+                enqueue(customer);
+
+                return;
+            }
+
+            cout << "Lama Rental : ";
+            cin >> lama;
+
+            double total =
+                lama * temp->harga;
+
+            temp->status = "Disewa";
+            temp->jumlahRental++;
+
+            Histori* baru =
+                new Histori;
+
+            baru->customer =
+                customer;
+
+            baru->mobil =
+                temp->nama;
+
+            baru->lama = lama;
+            baru->total = total;
+
+            baru->next = NULL;
+            baru->prev = NULL;
+
+            if (headHistori == NULL) {
+
+                headHistori =
+                    tailHistori =
+                        baru;
+
+            } else {
+
+                tailHistori->next =
+                    baru;
+
+                baru->prev =
+                    tailHistori;
+
+                tailHistori = baru;
+            }
+
+            pushStack("Rental Mobil");
+
+            saveData();
+
+            cout << "Total : "
+                 << total << endl;
+
+            return;
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "Mobil tidak ditemukan\n";
+}
+
+// ======================================================
+// PENGEMBALIAN MOBIL
+// ======================================================
+void pengembalianMobil() {
+
+    int id;
+
+    cout << "ID Mobil : ";
+    cin >> id;
+
+    Mobil* temp = headMobil;
+
+    while (temp != NULL) {
+
+        if (temp->id == id) {
+
+            temp->status = "Tersedia";
+
+            saveData();
+
+            cout << "Mobil berhasil dikembalikan\n";
+
+            return;
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "Mobil tidak ditemukan\n";
+}
