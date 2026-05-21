@@ -780,3 +780,150 @@ void statistik() {
     cout << "Favorit rental : "
          << favorit << endl;
 }
+// ======================================================
+// MENU
+// ======================================================
+void menu() {
+
+    int pilih;
+    bool loginStatus = false;
+
+    while (true) {
+
+        cls();
+
+        // LOGIN
+        if (!loginStatus) {
+
+            cout << "=========================\n";
+            cout << "      LOGIN ADMIN\n";
+            cout << "=========================\n";
+
+            cout << "1. Login\n";
+            cout << "0. Keluar\n";
+
+            cout << "Pilih : ";
+            cin >> pilih;
+
+            if (pilih == 1) {
+
+                cls();
+
+                if (login()) {
+
+                    loginStatus = true;
+
+                    cout << "\nLogin berhasil\n";
+
+                } else {
+
+                    cout << "\nLogin gagal\n";
+                }
+
+                system("pause");
+
+            } else if (pilih == 0) {
+
+                exit(0);
+            }
+        }
+
+        // MENU UTAMA
+        else {
+
+            cls();
+
+            cout << "====================================\n";
+            cout << " SISTEM RENTAL MOBIL BY RASYA&FIRA\n";
+            cout << "====================================\n";
+
+            cout << "1. Tambah Mobil\n";
+            cout << "2. Tampil Mobil\n";
+            cout << "3. Edit Mobil\n";
+            cout << "4. Hapus Mobil\n";
+            cout << "5. Cari Mobil\n";
+            cout << "6. Sorting Mobil\n";
+            cout << "7. Rental Mobil\n";
+            cout << "8. Pengembalian Mobil\n";
+            cout << "9. Histori Rental\n";
+            cout << "10. Statistik\n";
+            cout << "11. Queue Customer\n";
+            cout << "12. Undo\n";
+            cout << "0. Logout\n";
+
+            cout << "Pilih : ";
+            cin >> pilih;
+
+            cls();
+
+            switch (pilih) {
+
+            case 1:
+                tambahMobil();
+                break;
+
+            case 2:
+                tampilMobil();
+                break;
+
+            case 3:
+                editMobil();
+                break;
+
+            case 4:
+                hapusMobil();
+                break;
+
+            case 5:
+                cariMobil();
+                break;
+
+            case 6:
+                sortingMobil();
+                break;
+
+            case 7:
+                rentalMobil();
+                break;
+
+            case 8:
+                pengembalianMobil();
+                break;
+
+            case 9:
+                tampilHistori();
+                break;
+
+            case 10:
+                statistik();
+                break;
+
+            case 11:
+                tampilQueue();
+                break;
+
+            case 12:
+                popStack();
+                break;
+
+            case 0:
+                loginStatus = false;
+                break;
+
+            default:
+                cout << "Menu tidak valid\n";
+            }
+
+            system("pause");
+        }
+    }
+}
+
+int main() {
+
+    loadData();
+
+    menu();
+
+    return 0;
+}
